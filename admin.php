@@ -15,7 +15,30 @@
       {
         $msg = registration();
       }
-      ?>
+
+
+$message=null;
+
+if(isset($_POST['addadmn'])){
+     $name = $_POST['name'];
+     $email = $_POST['email'];
+     $password = $_POST['password'];
+     $confirmpass = $_POST['confirmpass'];
+
+     $message = addAdmin($email, $password, $confirmpass, $name);
+
+ }
+
+ if(isset($_POST['changepass'])){
+     $old = $_POST['old'];
+     $new = $_POST['newpass'];
+     $newcof = $_POST['newconfirmpass'];
+
+     $message = changeAdminPass($_SESSION['email'], $old, $new, $newcof);
+ }
+
+
+?>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -28,7 +51,7 @@
 <script type="text/javascript" src="assets/js/jquery-min.js"></script> 
 <script type="text/javascript" src="assets/js/bootstrap.min.js"></script> 
 <script type="text/javascript" src="assets/js/jquery.bxslider.js"></script> 
-<script type="text/javascript" src="assets/js/selectnav.min.js"></script> 
+<script type="text/javascript" src="assets/js/selectnav.min.js"></script>
 
 
 
@@ -39,6 +62,11 @@
 <link rel="stylesheet" type="text/css" href="assets/css/myStyle.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="assets/css/responsive.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="assets/css/jquery.bxslider.css" media="screen" />
+
+
+</script>
+
+
  
 </head>
 <body>
@@ -83,6 +111,20 @@
 
             <div class="panel-header">
               <center><h2>Dashboard</h2></center>
+              <?php 
+
+              if(isset($message)){
+                 printf('
+                  <div class="alert alert-info">
+                      <center>
+                        %s
+                      </center>
+                  </div>
+
+                  ', $message);
+              }
+
+              ?>
             </div>
 
             <div class="panel-body">
@@ -179,7 +221,63 @@
                               <h2>Profile Settings</h2>
                             </div>
                             <div class="panel-body">
-                                 
+                                <div class="row">
+                                <!--Add admin column -->
+                                <div class="col-md-6">
+
+                                     <!--Add admin --> 
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading"><h3>Add Admin</h3></div>
+                                            <div class="panel-body">
+                                              <form id="addadmin" action="admin.php" method="post">
+                                                  <label for="name">Name</label>
+                                                  <input class="form-control" type="text" name="name" placeholder="Admin Name" required>
+
+                                                  <label for="name">Email</label>
+                                                  <input class="form-control" type="email" name="email" placeholder="Email" required>
+
+                                                  <label for="name">Password</label>
+                                                  <input class="form-control" type="password" name="password" placeholder="Password" required>
+
+                                                  <label for="name">Re-type Password</label>
+                                                  <input class="form-control" type="password" name="confirmpass" placeholder="Confirm Password" required>
+
+                                                  <input type="submit"  class="form-control btn btn-primary" name="addadmn" value="Add">
+
+                                              </form>
+                                            </div>
+                                        </div>
+                                     <!-- End Add admin -->
+
+                                 </div>
+                                 <!-- End add admin column -->
+
+                                 <!--Account  Setting -->
+                                 <div class="col-md-6">
+
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading"><h3>Change Password</h3></div>
+                                            <div class="panel-body">
+                                              <form  action="admin.php" method="post">
+                                                  <label for="name">Old Password</label>
+                                                  <input class="form-control" type="password" name="old" placeholder="Old Password" required>
+
+                                                  <label for="name">New Password</label>
+                                                  <input class="form-control" type="password" name="newpass" placeholder="New Password" required>
+
+                                                  <label for="name">Confirm Password</label>
+                                                  <input class="form-control" type="password" name="newconfirmpass" placeholder="Re-type Password" required>
+                                                 
+                                                  <input type="submit"  class="form-control btn btn-primary" name="changepass" value="Change">
+
+                                              </form>
+                                            </div>
+                                        </div>
+                                   
+                                 </div>
+                                 <!-- Account Setting end -->
+
+                                </div>
                             </div>
                           
                         </div>
