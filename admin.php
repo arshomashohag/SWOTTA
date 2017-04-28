@@ -38,6 +38,8 @@ if(isset($_POST['addadmn'])){
  }
 
 
+ $catresult = getCategory();
+
 ?>
 
 
@@ -52,7 +54,7 @@ if(isset($_POST['addadmn'])){
 <script type="text/javascript" src="assets/js/bootstrap.min.js"></script> 
 <script type="text/javascript" src="assets/js/jquery.bxslider.js"></script> 
 <script type="text/javascript" src="assets/js/selectnav.min.js"></script>
-
+<script type="text/javascript" src="assets/js/myJs.js"></script>
 
 
 <link rel="stylesheet" type="text/css" href="assets/font/font-awesome.min.css" />
@@ -67,9 +69,53 @@ if(isset($_POST['addadmn'])){
 </script>
 
 
+<script type="text/javascript">
+   function selectsubc(id){
+
+    var xmlhttp;
+    
+     
+           if (window.XMLHttpRequest){
+
+                                  xmlhttp = new XMLHttpRequest();
+
+                                  }
+
+                                   else{ 
+                                     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                                  }
+
+                               xmlhttp.onreadystatechange = function(){
+                                 
+                                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                        document.getElementById("subcategory").innerHTML = xmlhttp.responseText;
+                                    }
+
+                               }
+
+                              xmlhttp.open("GET", "subcategoryajax.php?q=" + id, true);
+                              xmlhttp.send();
+                            
+                    return; 
+   }
+
+   $(function(){
+
+    $("#imgInp").change(function(event){
+         var tmppath = URL.createObjectURL(event.target.files[0]);
+        $("#previewimage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+
+    });
+});
+
+</script>
+
  
 </head>
+
 <body>
+
+
 <div class="body_wrapper">
   <div class="center">
 
@@ -196,19 +242,107 @@ if(isset($_POST['addadmn'])){
                     <!--Content pane -->
                    <div role="tabpanel" class="tab-pane" id="content">
 
-                        <div class="panel panel-primary">
 
-                            <div class="panel-heading">
-                              <h2>All Contents</h2>
-                            </div>
-                            <div class="panel-body">
-                                <?php
-                                   //$content = getContents();
-                                ?>
+                              <div class="row">  
+
+                               <div class="col-md-7">
+                                  <div class="panel panel-info">
+                                      <div class="panel-heading">
+                                          <span class="contactHead"><h2>Add Contents </h2></span>
+                                      </div>
+                                      
+                                      <div class="panel-body">
+                                          <form action="addsubc.php" method="post" class="form-horizontal" role="form" enctype="multipart/form-data">
+                                               <div class="form-group">
+                                              <label for="exampleInputEmail1" class="col-sm-3 control-label">Category Name</label>
+                                              <div class="col-sm-9">
+                                                  <select required name="category" id="category" onchange="selectsubc(this.value)" class="form-control">
+                                                      <option>Select Category</option>  
+                                                      <?php 
+                                                          
+                                                          while($data=mysqli_fetch_assoc($catresult))
+                                                          {
+                                                             printf('
+                                                                  <option value="%s">%s</option>
+                                                              ', $data['id'], $data['name']);
+
+                                                       } ?>
+                                                  </select>
+                                              </div>
+                                               </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1" class="col-sm-3 control-label">Subcategory Name</label>
+                                                  <div class="col-sm-9">
+                                                  <select required name="subcategory" id="subcategory" class="form-control">
+
+
+                                                  </select>
+                                                  </div>
+                                              </div> 
+                                          <div class="form-group">
+                                              <label for="inputEmail3" class="col-sm-3 control-label">Image</label>
+                                              <div class="col-sm-9">
+                                                <input type="file" accept=".jpg,.png,.gif" class="form-control" id="imgInp"  name="image">
+
+                                              </div>
+                                        </div>
+                                        <div class="form-group">
+                                              <label for="title" class="col-sm-3 control-label">Article Title</label>
+                                              <div class="col-sm-9">
+                                                <input type="text" name="title" class="form-control" required placeholder="Title">
+                                              </div>
+                                        </div>
+                                        <div class="form-group">
+                                              <label for="inputEmail3" class="col-sm-3 control-label">Article</label>
+                                              <div class="col-sm-9">
+                                                <textarea  name="article" type="text" class="form-control" id="inputtext" placeholder="Write article" rows="8" required> </textarea>
+                                              </div>
+                                        </div>
+                                         <div class="form-group">
+                                              <div class="col-sm-3"></div>
+                                              <div class="col-sm-9">
+                                                  <button  type="submit" class="btn btn-success form-control" name="add_content">Add Content</button>
+                                              </div>
+                                        </div>
+
+                                       </form>
+                                      </div>
+                                   
+                                                 
+
+                                  </div>
+                                                                               
+                              </div>
+
+                              <div class="col-md-5">
+                                   <!--Image Preview-->
+                                   <div class="panel panel-default">
+
+                                        <div class="panel-heading">
+                                           <h2>Preview</h2>
+                                        </div>
+
+
+                                        <div class="panel-body" id="imprev">
+                                            
+                                            <div style="min-width: 100%; min-height: 450px;">
+                                                  <img src="" id="previewimage" style="min-width: 100%; min-height: 300px; max-height: 300px;">
+                                             </div>
+
+                                        </div>
+                                     
+                                   </div>
+                                   <!--End image preview--> 
+                                   
+                               </div>
+
+                                 
                             </div>
                           
-                        </div>
+                         
                      
+                   
+
                    </div>
                    <!-- ENd of content pane -->
 
