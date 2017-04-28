@@ -3,7 +3,17 @@ include "php/dbConnection.php";
 	
 	function signin_checking($email, $password){
 
-	global $connection;
+	    global $connection;
+       //Admin checking
+       $pass=sha1($password);
+       $query = "SELECT * FROM admin WHERE email='$email' AND password='$pass'";
+       $result = mysqli_query($connection, $query);
+
+       if(mysqli_num_rows($result)==1){
+            return "admin";
+       }
+
+         //User checking 
 		      $error=false;
           $msg="";
 		       
@@ -33,11 +43,6 @@ include "php/dbConnection.php";
                 $count_user =mysqli_num_rows($query_email_result);
 
                    if($count_user==1 && $row['password']==$password){
-
-                         
-                       if($email=='amrinder146@gmail.com') {
-                                  return "admin";
-                            }
                             
                             return "ok";
                             
@@ -92,7 +97,7 @@ include "php/dbConnection.php";
           }
         if (empty($confirm_password)){
             
-            return "Please enter password.";
+            return "Please retype password.";
         } else if($password != $confirm_password) {
              
             return "Password does not match";
@@ -122,6 +127,64 @@ include "php/dbConnection.php";
                         }
  
 	}
+
+
+  function addAdmin($email, $password, $conf, $name){
+    global $connection;
+    $query = "SELECT * FROM admin where email='$email'";
+    $result = mysqli_query($connection, $query);
+
+    
+    if($password!=$conf){
+      return "Password don't match !!";
+    }
+
+    if(mysqli_num_rows($result)>=1){
+      return "Already assigned as an admin !";
+    }
+
+    
+    $password = sha1($password);
+
+    $query = "INSERT INTO admin(email, password, name) VALUES('$email', '$password', '$name')";
+    $result = mysqli_query($connection, $query);
+
+    if($result){
+      return "Admin registered successfully !!";
+    }
+    else{
+      return "Something wrong, please try again !";
+    }
+
+  }
+
+
+  function changeAdminPass($email, $old, $new, $newcof){
+    global $connection;
+
+    if($new!=$newcof){
+      return "Password don't match!!";
+    }
+
+
+    $pass = sha1($old);
+    $newpass = sha1($new);
+    $query = "SELECT * FROM admin WHERE email='$email' AND password='$pass'";
+    $result = mysqli_query($connection, $query);
+
+    if(mysqli_num_rows($result)==1){
+           if($old == $new){
+          return "Password same as old password, pick a new one!";
+        }
+      $query = "UPDATE admin SET password='$newpass' WHERE email='$email'";
+      $result = mysqli_query($connection, $query);
+
+      if($result){
+        return "Password changed successfully!!";
+      }
+      return "Something went wrong, please try again !";
+    }
+  }
 
 
   function getAllCategory(){
