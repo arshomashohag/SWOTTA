@@ -35,7 +35,7 @@ include "php/dbConnection.php";
                    if($count_user==1 && $row['password']==$password){
 
                          
-                       if($email=='amrinder146@gmail.com') {
+                       if($email=='najmul2022@gmail.com') {
                                   return "admin";
                             }
                             
@@ -193,5 +193,39 @@ include "php/dbConnection.php";
     return mysqli_query($connection, $query);
   }
 
+
+
+
+
+function addContentes($category_id,$subcategory_id,$title,$filepath,$filetmp,$article)
+                      { 
+                      
+                          global $connection;
+                          $filepath = mysqli_real_escape_string($connection,$filepath);
+                          $query = "INSERT into content(cid,scid,head,image,body) values('$category_id',$subcategory_id,'$title','$filepath','$article')";
+                           $result=mysqli_query($connection,$query);
+                          if($result && strlen($filepath)>0){
+                            move_uploaded_file($filetmp,$filepath);
+                            
+                          }
+
+                          
+                    }
+
+
+ function checkCountImage(){
+      global $connection;
+       $query = "SELECT * FROM photon ";
+       $result=mysqli_query($connection, $query);
+       $row= mysqli_fetch_assoc($result);
+       $count= $row['count'];  
+       $old=$count;
+       $count=$count+1;
+       $queryU="UPDATE photon SET count='$count' WHERE id=1 ";
+       mysqli_query($connection,$queryU);
+       return $old;
+
+ }                   
+                  
 
 ?>

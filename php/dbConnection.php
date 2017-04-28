@@ -1,6 +1,6 @@
 <?php 
 
-$connection=mysqli_connect('localhost','root','','swotta');
+$connection=mysqli_connect('localhost','root','','swotta_update');
 
 if(!$connection)
 {
