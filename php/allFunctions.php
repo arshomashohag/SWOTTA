@@ -260,7 +260,7 @@ include "php/dbConnection.php";
 
   function getContents($id, $cid){
     global $connection;
-    $query = "SELECT * FROM content WHERE scid='$cid' AND scid='$id'";
+    $query = "SELECT * FROM content WHERE scid='$cid' AND scid='$id' ORDER BY createdat DESC";
 
     return mysqli_query($connection, $query);
   }
@@ -276,15 +276,14 @@ include "php/dbConnection.php";
                            $result=mysqli_query($connection,$query);
 
                           if($result && strlen($filepath)>0){
-                            move_uploaded_file($filetmp,$filepath);
+                            move_uploaded_file($filetmp, $filepath);
+                            
                            }
 
                           if(!$result) 
                             return false;
 
-
                           return true;
-
                           
                     }
 
@@ -297,11 +296,111 @@ include "php/dbConnection.php";
        $count= $row['count'];  
        $old=$count;
        $count=$count+1;
-       $queryU="UPDATE photon SET count='$count' WHERE id=1 ";
+       $queryU="UPDATE photon SET count='$count' WHERE id=1";
        mysqli_query($connection,$queryU);
        return $old;
 
  } 
+
+
+function addNewArticle($title, $article,  $filepath, $filetmp){
+
+  global $connection;
+
+  $query = "INSERT INTO article (head, body, link) VALUES('$title','$article','$filepath')";
+
+  $result = mysqli_query($connection, $query);
+
+  if($result && strlen($filepath)>0){
+    move_uploaded_file($filetmp, $filepath);
+    return true;
+  }
+
+  if(!$result)
+    return false;
+
+  return true;
+
+}
+
+
+function addNewEditorial($title, $editorial,  $filepath, $filetmp){
+     global $connection;
+
+  $query = "INSERT INTO editorial (head, body, link) VALUES('$title','$editorial','$filepath')";
+
+  $result = mysqli_query($connection, $query);
+
+  if($result && strlen($filepath)>0){
+    move_uploaded_file($filetmp, $filepath);
+    return true;
+  }
+
+  if(!$result)
+    return false;
+
+  return true;
+}
+
+
+function addDeskNews($title, $editorial,  $filepath, $filetmp){
+    global $connection;
+
+  $query = "INSERT INTO desk (head, body, link) VALUES('$title','$editorial','$filepath')";
+
+  $result = mysqli_query($connection, $query);
+
+  if($result && strlen($filepath)>0){
+    move_uploaded_file($filetmp, $filepath);
+    return true;
+  }
+
+  if(!$result)
+    return false;
+
+  return true;
+}
+
+
+
+function addImagetoGallery($description, $filepath, $filetmp){
+
+  global $connection;
+
+  $query = "INSERT INTO gallery (description, link) VALUES('$description', '$filepath')";
+
+  $result = mysqli_query($connection, $query);
+
+  if($result && strlen($filepath)>0){
+    move_uploaded_file($filetmp, $filepath);
+    return true;
+  }
+
+  if(!$result)
+    return false;
+
+  return true;
+
+}
+
+function addImageforAdd($description, $filepath, $filetmp){
+
+   global $connection;
+
+  $query = "INSERT INTO addimage (description, link) VALUES('$description', '$filepath')";
+
+  $result = mysqli_query($connection, $query);
+
+  if($result && strlen($filepath)>0){
+    move_uploaded_file($filetmp, $filepath);
+    return true;
+  }
+
+  if(!$result)
+    return false;
+
+  return true;
+}
 
 
 ?>

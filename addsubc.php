@@ -15,6 +15,8 @@ if(isset($_POST['add']))
    	
 
    }
+
+   
    if(isset($_POST['add_content']))
    {
     	$category_id=$_POST['category'];
@@ -26,15 +28,17 @@ if(isset($_POST['add']))
       $filetmp = $_FILES["image"]["tmp_name"];
       $filename = $_FILES["image"]["name"];
 
+      $filepath = "";
       if(!empty($filename)){
       $count=checkCountImage();
+
       $filepath = "images/".$count.$filename;  
       }
       
 
            $message = null;
 
-      $r = addContentes($category_id,$subcategory_id,$title,$filepath,$filetmp,$article);
+      $r = addContentes($category_id, $subcategory_id, $title, $filepath, $filetmp, $article);
       if($r){
       	//header('Location: '.$_SERVER['HTTP_REFERER']);
 

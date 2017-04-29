@@ -134,7 +134,7 @@ include_once('php/allFunctions.php');
 										</div>
 
 
-                               	', $news['head'], $news['date'], $news['body']);
+                               	', $news['head'], $news['createdat'], $news['body']);
                                }
 
                                if(!$flag){

@@ -108,6 +108,44 @@ if(isset($_POST['addadmn'])){
     });
 });
 
+$(function(){
+   $("#articleimageselect").change(function(event){
+       var tmppath = URL.createObjectURL(event.target.files[0]);
+        $("#articlepreviewimage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+   });
+});
+
+  $(function(){
+     $('#editorialimageselect').change(function(event){
+
+        var tmppath = URL.createObjectURL(event.target.files[0]);
+        $("#editorialpreviewimage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+     });
+  });
+
+  $(function(){
+     $('#desknewsimageselect').change(function(event){
+
+        var tmppath = URL.createObjectURL(event.target.files[0]);
+        $("#deskpreviewimage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+     });
+  });
+
+  $(function(){
+     $('#galleryimageselect').change(function(event){
+
+        var tmppath = URL.createObjectURL(event.target.files[0]);
+        $("#gallerypreviewimage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+     });
+  });
+
+  $(function(){
+     $('#advertisementimageselect').change(function(event){
+
+        var tmppath = URL.createObjectURL(event.target.files[0]);
+        $("#advertisementpreviewimage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+     });
+  });
 </script>
 
  
@@ -180,7 +218,14 @@ if(isset($_POST['addadmn'])){
                  <ul class="nav nav-tabs" role="tablist">
                    <li role="presentation" class="active"><a href="#category" aria-controls="home" role="tab" data-toggle="tab">Category</a></li>
                    <li role="presentation" ><a href="#content" aria-controls="profile" role="tab" data-toggle="tab">Content</a></li>
+                   <li role="presentation" ><a href="#article" aria-controls="profile" role="tab" data-toggle="tab">Article</a></li>
+                   <li role="presentation" ><a href="#editorial" aria-controls="profile" role="tab" data-toggle="tab">Editorial</a></li>
+                   <li role="presentation" ><a href="#desk" aria-controls="profile" role="tab" data-toggle="tab">News Desk</a></li>
+                   <li role="presentation" ><a href="#gallery" aria-controls="profile" role="tab" data-toggle="tab">Gallery</a></li>
+                   <li role="presentation" ><a href="#advertisement" aria-controls="profile" role="tab" data-toggle="tab">Add</a></li>
+
                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
+
                  </ul>
 
                  <!-- Tab panes -->
@@ -192,7 +237,7 @@ if(isset($_POST['addadmn'])){
                     <!-- Category panes -->
                    <div role="tabpanel" class="tab-pane fade-in active" id="category">
                                     
-                                      
+                                       <div style="border-top: 5px dashed black"></div>
                                         
                                          
                                              <div class="panel panel-primary">
@@ -241,7 +286,7 @@ if(isset($_POST['addadmn'])){
 
                     <!--Content pane -->
                    <div role="tabpanel" class="tab-pane" id="content">
-
+                   <div style="border-top: 5px dashed black"></div>
 
                               <div class="row">  
 
@@ -345,10 +390,299 @@ if(isset($_POST['addadmn'])){
 
                    </div>
                    <!-- ENd of content pane -->
+                    
+
+                    <!--Article pane started-->
+                    <div role="tabpanel" class="tab-pane" id="article">
+                    <div style="border-top: 5px dashed black"></div>
+                        <div class="row">
+                            <div class="col-md-6">
+
+
+                                <div class="panel panel-success">
+                                     <div class="panel-heading">
+                                          <h2>Write Article</h2>
+                                     </div>
+                                     <div class="panel-body">
+                                          <form action="addarticle.php" method="post" role="form" enctype="multipart/form-data">
+                                              <label for="articlehead">Title</label>
+                                              <input type="text" class="form-control" name="articlehead" id="articlehead" placeholder="Title" required>
+
+                                              <label for="articlebody">Article</label>
+                                              <textarea class="form-control" name="articlebody" id="articlebody" required  placeholder="Article"  rows="8"></textarea> 
+
+                                              <label>Image</label>
+                                              <input type="file" accept=".jpg,.png,.gif" id="articleimageselect" class="form-control" name="articleimage">
+
+                                              <input type="submit" class="btn btn-primary form-control" name="addarticle" value="Add">
+                                          </form>
+                                     </div>
+                                </div> 
+
+                            </div>
+                            <!--Image preview-->
+                            <div class="col-md-6">
+                                 <div class="panel panel-default">
+
+                                        <div class="panel-heading">
+                                           <h2>Image Preview</h2>
+                                        </div>
+
+
+                                        <div class="panel-body" id="articleimprev">
+                                            
+                                            <div style="min-width: 100%; min-height: 340px;">
+                                                  <img src="" id="articlepreviewimage" style="min-width: 100%; min-height: 300px; max-height: 300px;">
+                                             </div>
+
+                                        </div>
+                                     
+                                   </div>
+                            </div>
+                            <!--End image preview-->
+                        </div>
+                      
+                    </div>
+                    <!--End of article pane-->
+
+
+
+
+                    <!--Editorial pane started-->
+                    <div role="tabpanel" class="tab-pane" id="editorial">
+                    <div style="border-top: 5px dashed black"></div>
+
+                         <div class="row">
+                             <div class="col-md-6">
+
+
+                                 <div class="panel panel-success">
+                                      <div class="panel-heading">
+                                           <h2>Write Editorial</h2>
+                                      </div>
+                                      <div class="panel-body">
+                                           <form action="addeditorial.php" method="post" role="form" enctype="multipart/form-data">
+
+                                               <label for="editorialhead">About</label>
+                                               <input type="text" class="form-control" name="editorialhead" id="editorialhead" placeholder="Heading" required>
+
+                                               <label for="editorialbody">Editorial</label>
+                                               <textarea class="form-control" name="editorialbody" id="editorialbody" required  placeholder="Editorial"  rows="8"></textarea> 
+
+                                               <label>Image</label>
+                                               <input type="file" accept=".jpg,.png,.gif" id="editorialimageselect" class="form-control" name="editorialimage">
+
+                                               <input type="submit" class="btn btn-primary form-control" name="addeditorial" value="Publish">
+                                           </form>
+                                      </div>
+                                 </div> 
+
+                             </div>
+                             <!--Image preview-->
+                             <div class="col-md-6">
+                                  <div class="panel panel-default">
+
+                                         <div class="panel-heading">
+                                            <h2>Image Preview</h2>
+                                         </div>
+
+
+                                         <div class="panel-body" id="editorialimprev">
+                                             
+                                             <div style="min-width: 100%; min-height: 340px;">
+                                                   <img src="" id="editorialpreviewimage" style="min-width: 100%; min-height: 300px; max-height: 300px;">
+                                              </div>
+
+                                         </div>
+                                      
+                                    </div>
+                             </div>
+                             <!--End image preview-->
+                         </div>
+                      
+                    </div>
+                    <!--End of editorial pane-->
+
+
+
+
+                    <!--Start of news desk-->
+                    <div role="tabpanel" class="tab-pane" id="desk">
+                    <div style="border-top: 5px dashed black"></div>
+                        <div class="row">
+                             
+                             <!--Image preview-->
+                             <div class="col-md-6">
+                                  <div class="panel panel-default">
+
+                                         <div class="panel-heading">
+                                            <h2>Image Preview</h2>
+                                         </div>
+
+
+                                         <div class="panel-body" id="deskimprev">
+                                             
+                                             <div style="min-width: 100%; min-height: 340px;">
+                                                   <img src="" id="deskpreviewimage" style="min-width: 100%; min-height: 300px; max-height: 300px;">
+                                              </div>
+
+                                         </div>
+                                      
+                                    </div>
+                             </div>
+                             <!--End image preview-->
+
+                             <div class="col-md-6">
+
+
+                                 <div class="panel panel-success">
+                                      <div class="panel-heading">
+                                           <h2>Current News</h2>
+                                      </div>
+                                      <div class="panel-body">
+                                           <form action="addedesknews.php" method="post" role="form" enctype="multipart/form-data">
+
+                                               <label for="editorialhead">Headline</label>
+                                               <input type="text" class="form-control" name="deskhead" id="deskhead" placeholder="Headline" required>
+
+                                               <label for="editorialbody">News</label>
+                                               <textarea class="form-control" name="deskbody" id="deskbody" required  placeholder="News"  rows="8"></textarea> 
+
+                                               <label>Image</label>
+                                               <input type="file" accept=".jpg,.png,.gif" id="desknewsimageselect" class="form-control" name="desknewsimage">
+
+                                               <input type="submit" class="btn btn-primary form-control" name="adddesknews" value="Publish">
+                                           </form>
+                                      </div>
+                                 </div> 
+
+                             </div>
+
+                         </div>
+                      
+                    </div>
+                    <!--End of news desk-->
+
+
+
+                    <!--Start of gallery-->
+                    <div role="tabpanel" class="tab-pane" id="gallery">
+                            <div style="border-top: 5px dashed black"></div>
+
+                            <div class="row">
+                             
+                             <!--Image preview-->
+                             <div class="col-md-6">
+                                  <div class="panel panel-default">
+
+                                         <div class="panel-heading">
+                                            <h2>Image Preview</h2>
+                                         </div>
+
+
+                                         <div class="panel-body" id="galleryimprev">
+                                             
+                                             <div style="min-width: 100%; min-height: 340px;">
+                                                   <img src="" id="gallerypreviewimage" style="min-width: 100%; min-height: 300px; max-height: 300px;">
+                                              </div>
+
+                                         </div>
+                                      
+                                    </div>
+                             </div>
+                             <!--End image preview-->
+
+                             <div class="col-md-6">
+                              
+                                 <div class="panel panel-success">
+                                      <div class="panel-heading">
+                                           <h2>Add Image to Gallery</h2>
+                                      </div>
+                                      <div class="panel-body">
+                                           <form action="addimagetogallery.php" method="post" role="form" enctype="multipart/form-data">
+
+                                               <label for="imagedescription">Description</label>
+                                               <textarea class="form-control" name="imagedescription" id="imagedescription" required  placeholder="About this photo"  rows="10"></textarea> 
+
+                                               <label>Image</label>
+                                               <input type="file" accept=".jpg,.png,.gif" id="galleryimageselect" class="form-control" name="galleryimage">
+
+                                               <input type="submit" class="btn btn-primary form-control" name="addimage" value="Add">
+                                           </form>
+                                      </div>
+                                 </div> 
+
+                             </div>
+
+                         </div>
+                      
+                    </div>
+                    <!--End of gallery pane-->
+
+
+
+                    <!--start of add pane-->
+                    <div role="tabpanel" class="tab-pane" id="advertisement">
+                     <div style="border-top: 5px dashed black"></div>
+
+                        <div class="row">
+
+                         <div class="col-md-6">
+                          
+                             <div class="panel panel-success">
+                                  <div class="panel-heading">
+                                       <h2>Advertisement Management</h2>
+                                  </div>
+                                  <div class="panel-body">
+                                       <form action="advertisement.php" method="post" role="form" enctype="multipart/form-data">
+
+                                           <label for="adddescription">Description</label>
+                                           <textarea class="form-control" name="adddescription" id="adddescription" required  placeholder="About the organisation"  rows="10"></textarea> 
+
+                                           <label>Image</label>
+                                           <input type="file" accept=".jpg,.png,.gif" id="advertisementimageselect" class="form-control" name="advertisementimage">
+
+                                           <input type="submit" class="btn btn-primary form-control" name="advertisement" value="Publish">
+                                       </form>
+                                  </div>
+                             </div>
+                            </div>
+
+                        <!--Image preview-->
+                         <div class="col-md-6">
+                              <div class="panel panel-default">
+
+                                     <div class="panel-heading">
+                                        <h2>Image Preview</h2>
+                                     </div>
+
+
+                                     <div class="panel-body" id="addimprev">
+                                         
+                                         <div style="min-width: 100%; min-height: 340px;">
+                                               <img src="" id="advertisementpreviewimage" style="min-width: 100%; min-height: 300px; max-height: 300px;">
+                                          </div>
+
+                                     </div>
+                                  
+                                </div>
+                         </div>
+                         <!--End image preview--> 
+
+                         
+
+                     </div>
+
+
+
+                    </div>
+                    <!--end of add pane.-->
+
 
 
                    <!--setting pane -->
                    <div role="tabpanel" class="tab-pane" id="settings">
+                     <div style="border-top: 5px dashed black"></div>
                       <div class="panel panel-primary">
 
                             <div class="panel-heading">
