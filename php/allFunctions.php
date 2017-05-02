@@ -258,30 +258,31 @@ include "php/dbConnection.php";
 
 
 
-  function getContents($id, $cid){
+  function getContents($cid, $scid){
     global $connection;
-    $query = "SELECT * FROM content WHERE scid='$cid' AND scid='$id' ORDER BY createdat DESC";
+    $query = "SELECT * FROM content WHERE cid='$cid' AND scid='$scid' ORDER BY createdat DESC";
 
     return mysqli_query($connection, $query);
   }
 
 
-  function addContentes($category_id,$subcategory_id,$title,$filepath,$filetmp,$article)
-                      { 
+  function addContentes($category_id, $subcategory_id, $title, $filepath, $filetmp, $article){ 
                       
                           global $connection;
-                          $filepath = mysqli_real_escape_string($connection,$filepath);
-                          $query = "INSERT into content(cid,scid,head,image,body) values('$category_id',$subcategory_id,'$title','$filepath','$article')";
+                          $zerro=0;
+                           $filepath = mysqli_real_escape_string($connection,$filepath);
 
-                           $result=mysqli_query($connection,$query);
+                           $query="INSERT INTO content (cid, scid, head, image, body, readcount) VALUES('$category_id','$subcategory_id','$title','$filepath','$article', '$zerro')";
+
+                           $result = mysqli_query($connection, $query);
 
                           if($result && strlen($filepath)>0){
                             move_uploaded_file($filetmp, $filepath);
-                            
+                            return true;
                            }
-
+ 
                           if(!$result) 
-                            return false;
+                            return $result;
 
                           return true;
                           
@@ -381,6 +382,25 @@ function addImagetoGallery($description, $filepath, $filetmp){
 
   return true;
 
+}
+
+
+function addImagetoSlider($description, $filepath, $filetmp){
+   global $connection;
+
+  $query = "INSERT INTO slider (description, link, type) VALUES('$description', '$filepath', 0)";
+
+  $result = mysqli_query($connection, $query);
+
+  if($result && strlen($filepath)>0){
+    move_uploaded_file($filetmp, $filepath);
+    return true;
+  }
+
+  if(!$result)
+    return false;
+
+  return true;
 }
 
 function addImageforAdd($description, $filepath, $filetmp){

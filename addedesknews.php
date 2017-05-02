@@ -7,6 +7,7 @@ if(isset($_POST['adddesknews']))
     	$body = $_POST['deskbody'];
     	 
     	$desknews = nl2br(htmlentities($body, ENT_QUOTES, 'UTF-8'));
+      $title = htmlentities($title, ENT_QUOTES, 'UTF-8');
     	
       $filetmp = $_FILES["desknewsimage"]["tmp_name"];
       $filename = $_FILES["desknewsimage"]["name"];
@@ -30,7 +31,9 @@ if(isset($_POST['adddesknews']))
       			$message = "Something wrong!!! Please try again!!";
       }
    }
-
+ else{
+    header('Location: php/error.php');
+   }
 
 ?>
 

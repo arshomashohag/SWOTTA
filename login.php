@@ -58,7 +58,11 @@
   <div class="center">
     <div class="header_area">
       <div class="logo floatleft"><a href="#"><img src="images/logo12.png" alt="" /></a></div>
-      <div class="top_menu floatleft">
+       <br>
+       <br>
+       <br>
+       <br>
+      <span class="top_menu">
         <ul>
           <li><a href="index.php">Home</a></li>
           <li><a href="#">About</a></li>
@@ -83,7 +87,7 @@
 
         ?>
         </ul>
-      </div>
+      </span>
    </div>
           
           <div class="container" style="margin: 100px 0px 120px 0px">

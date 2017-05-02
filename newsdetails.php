@@ -1,7 +1,7 @@
 <?php
 include_once('php/allFunctions.php');
-$id = $_GET['id'];
-$cid = $_GET['cat'];
+$cid = $_GET['cid'];
+$scid = $_GET['scid'];
 $cname = $_GET['cname'];
 $scname = $_GET['scname'];
 
@@ -12,7 +12,6 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 
 include_once('php/allFunctions.php');
-
 
 ?>
 
@@ -89,7 +88,7 @@ include_once('php/allFunctions.php');
 
                   while($scat=mysqli_fetch_assoc($scatresult)){
                       
-                        printf('<li><a href="newsdetails.php?cname=%s&scname=%s&id=%s&cat=%s">%s</a></li>',$cat['name'],$scat['name'],$scat['id'],$cat['id'], $scat['name']);
+                        printf('<li><a href="newsdetails.php?cname=%s&scname=%s&cid=%s&scid=%s">%s</a></li>',$cat['name'],$scat['name'],$cat['id'],$scat['id'], $scat['name']);
                     }
                       print('</ul>
                   </li>');
@@ -116,7 +115,7 @@ include_once('php/allFunctions.php');
               <div class="contentcontainer">
  					 
 					      <?php
-					      	   $result = getContents($id, $cid);
+					      	   $result = getContents($cid, $scid);
 					      	    $flag=false;
 
                                while($news = mysqli_fetch_assoc($result)){

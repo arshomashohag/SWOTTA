@@ -1,36 +1,38 @@
 <?php
 include_once('php/allFunctions.php');
 
-if(isset($_POST['addarticle']))
+
+
+if(isset($_POST['saveslider']))
    {
-    	$title = $_POST['articlehead'];
-    	$body = $_POST['articlebody'];
     	 
-    	$article = nl2br(htmlentities($body, ENT_QUOTES, 'UTF-8'));
-      $title = htmlentities($title, ENT_QUOTES, 'UTF-8');
+    	$description = $_POST['sliderdescription'];
+    	 
+    	$description = nl2br(htmlentities($description, ENT_QUOTES, 'UTF-8'));
     	
-      $filetmp = $_FILES["articleimage"]["tmp_name"];
-      $filename = $_FILES["articleimage"]["name"];
+      $filetmp = $_FILES["sliderimage"]["tmp_name"];
+      $filename = $_FILES["sliderimage"]["name"];
 
       $filepath = "";
       if(!empty($filename)){
       $count=checkCountImage();
 
-      $filepath = "images/article/".$count.$filename;  
+      $filepath = "images/slider/".$count.$filename;  
       }
       
 
            $message = null;
 
-      $r = addNewArticle($title, $article,  $filepath, $filetmp);
+      $r = addImagetoSlider($description, $filepath, $filetmp);
       if($r){
-        $message= "Article Saved Successfully !!";
+        $message= "Image Saved Successfully !!";
     }
         else{
 
       			$message = "Something wrong!!! Please try again!!";
       }
    }
+
 
     else{
     header('Location: php/error.php');

@@ -146,6 +146,14 @@ $(function(){
         $("#advertisementpreviewimage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
      });
   });
+
+  $(function(){
+     $('#sliderimageselect').change(function(event){
+
+        var tmppath = URL.createObjectURL(event.target.files[0]);
+        $("#sliderpreviewimage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+     });
+  });
 </script>
 
  
@@ -159,7 +167,11 @@ $(function(){
 
     <div class="header_area">
       <div class="logo floatleft"><a href="#"><img src="images/logo12.png" alt="" /></a></div>
-      <div class="top_menu floatleft">
+       <br>
+       <br>
+       <br>
+       <br>
+      <span class="top_menu">
         <ul>
           <li><a href="index.php">Home</a></li>
           <li><a href="#">About</a></li>
@@ -184,7 +196,7 @@ $(function(){
 
         ?>
         </ul>
-      </div>
+      </span>
    </div>
           
            
@@ -223,6 +235,9 @@ $(function(){
                    <li role="presentation" ><a href="#desk" aria-controls="profile" role="tab" data-toggle="tab">News Desk</a></li>
                    <li role="presentation" ><a href="#gallery" aria-controls="profile" role="tab" data-toggle="tab">Gallery</a></li>
                    <li role="presentation" ><a href="#advertisement" aria-controls="profile" role="tab" data-toggle="tab">Add</a></li>
+
+                    <li role="presentation" ><a href="#slider" aria-controls="profile" role="tab" data-toggle="tab">Slider</a></li>
+                   
 
                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
 
@@ -677,6 +692,68 @@ $(function(){
 
                     </div>
                     <!--end of add pane.-->
+
+
+
+
+                    <!--Slider -->
+
+                      <div role="tabpanel" class="tab-pane" id="slider">
+                       <div style="border-top: 5px dashed black"></div>
+
+                          <div class="row">
+
+                           <div class="col-md-6">
+                            
+                               <div class="panel panel-success">
+                                    <div class="panel-heading">
+                                         <h2>Slider Management</h2>
+                                    </div>
+                                    <div class="panel-body">
+                                         <form action="addSlider.php" method="post" role="form" enctype="multipart/form-data">
+
+                                             <label for="sliderdescription">Description</label>
+                                             <textarea class="form-control" name="sliderdescription" id="sliderdescription" required  placeholder="About the Image"  rows="10"></textarea> 
+
+                                             <label>Image</label>
+                                             <input type="file" accept=".jpg,.png,.gif" id="sliderimageselect" class="form-control" name="sliderimage">
+
+                                             <input type="submit" class="btn btn-primary form-control" name="saveslider" value="Add Slider">
+                                         </form>
+                                    </div>
+                               </div>
+                              </div>
+
+                          <!--Image preview-->
+                           <div class="col-md-6">
+                                <div class="panel panel-default">
+
+                                       <div class="panel-heading">
+                                          <h2>Image Preview</h2>
+                                       </div>
+
+
+                                       <div class="panel-body" id="sliderimprev">
+                                           
+                                           <div style="min-width: 100%; min-height: 340px;">
+                                                 <img src="" id="sliderpreviewimage" style="min-width: 100%; min-height: 300px; max-height: 300px;">
+                                            </div>
+
+                                       </div>
+                                    
+                                  </div>
+                           </div>
+                           <!--End image preview--> 
+
+                           
+
+                       </div>
+
+
+
+                      </div>
+
+                    <!--End slider -->
 
 
 

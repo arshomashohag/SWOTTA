@@ -17,7 +17,7 @@ if(isset($_POST['advertisement']))
       if(!empty($filename)){
       $count=checkCountImage();
 
-      $filepath = "images/advertisement/".$count.$filename;  
+      $filepath = "images/add/".$count.$filename;  
       }
       
 
@@ -31,6 +31,10 @@ if(isset($_POST['advertisement']))
 
       			$message = "Something wrong!!! Please try again!!";
       }
+   }
+
+    else{
+    header('Location: php/error.php');
    }
 
 

@@ -8,8 +8,8 @@ if(isset($_POST['add']))
         
    	     $r = addSubcategory($name,$cid);
    	     $message=null;
-         /*if($r=="Ok")
-   		 header('Location: '.$_SERVER['HTTP_REFERER']);*/
+         if($r=="Ok")
+   		   header('Location: '.$_SERVER['HTTP_REFERER']);
 
    		 $message = $r;
    	
@@ -17,30 +17,39 @@ if(isset($_POST['add']))
    }
 
    
-   if(isset($_POST['add_content']))
+  else if(isset($_POST['add_content']))
    {
     	$category_id=$_POST['category'];
     	$subcategory_id=$_POST['subcategory'];
     	$title=$_POST['title'];
     	$article=$_POST['article'];
+
     	$article = nl2br(htmlentities($article, ENT_QUOTES, 'UTF-8'));
+      $title = htmlentities($title, ENT_QUOTES, 'UTF-8');
     	
+      $filetmp = "";
+      $filename = "";
+      $filepath = "";
+
       $filetmp = $_FILES["image"]["tmp_name"];
       $filename = $_FILES["image"]["name"];
 
-      $filepath = "";
-      if(!empty($filename)){
-      $count=checkCountImage();
+      
 
+      if(!empty($filename)){
+
+      $count=checkCountImage();
       $filepath = "images/".$count.$filename;  
+
       }
       
 
            $message = null;
+           
 
-      $r = addContentes($category_id, $subcategory_id, $title, $filepath, $filetmp, $article);
+       $r = addContentes($category_id, $subcategory_id, $title, $filepath, $filetmp, $article);
+
       if($r){
-      	//header('Location: '.$_SERVER['HTTP_REFERER']);
 
        $message= "Contents Are Saved Successfully !!";
     }
@@ -48,6 +57,12 @@ if(isset($_POST['add']))
 
       			$message = "Something wrong!!! Please try again!!";
       }
+
+      
+   }
+
+   else{
+    header('Location: php/error.php');
    }
 
 
@@ -71,7 +86,7 @@ if(isset($_POST['add']))
                                  $back = $_SERVER['HTTP_REFERER'];
 
 					  			if(isset($message)){
-					  				printf('<div><strong class="alert alert-danger">%s</strong></div>', $message);
+					  				printf('<div><strong class="alert alert-info">%s</strong></div>', $message);
 					  			}
 
 					  			printf('<div> 

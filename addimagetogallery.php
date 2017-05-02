@@ -33,6 +33,10 @@ if(isset($_POST['addimage']))
       }
    }
 
+    else{
+    header('Location: php/error.php');
+   }
+
 
 ?>
 

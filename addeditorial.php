@@ -7,6 +7,7 @@ if(isset($_POST['addeditorial']))
     	$body = $_POST['editorialbody'];
     	 
     	$editorial = nl2br(htmlentities($body, ENT_QUOTES, 'UTF-8'));
+      $title = htmlentities($title, ENT_QUOTES, 'UTF-8');
     	
       $filetmp = $_FILES["editorialimage"]["tmp_name"];
       $filename = $_FILES["editorialimage"]["name"];
@@ -29,6 +30,10 @@ if(isset($_POST['addeditorial']))
 
       			$message = "Something wrong!!! Please try again!!";
       }
+   }
+
+    else{
+    header('Location: php/error.php');
    }
 
 
