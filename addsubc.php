@@ -1,6 +1,6 @@
 <?php
 include_once('php/allFunctions.php');
-
+include "php/dbConnection.php";
 if(isset($_POST['add']))
    {
    	$name = $_POST['subc'];
@@ -33,13 +33,13 @@ if(isset($_POST['add']))
 
       $filetmp = $_FILES["image"]["tmp_name"];
       $filename = $_FILES["image"]["name"];
-
+      // $filetmp = mysqli_real_escape_string($connection,$filetmp);
       
 
       if(!empty($filename)){
 
       $count=checkCountImage();
-      $filepath = "images/".$count.$filename;  
+      $filepath = "images/contents/".$count.$filename;  
 
       }
       
@@ -60,6 +60,7 @@ if(isset($_POST['add']))
 
       
    }
+   
 
    else{
     header('Location: php/error.php');

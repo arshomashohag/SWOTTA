@@ -66,10 +66,39 @@ if(isset($_POST['addadmn'])){
 <link rel="stylesheet" type="text/css" href="assets/css/jquery.bxslider.css" media="screen" />
 
 
-</script>
+
 
 
 <script type="text/javascript">
+
+   function deleteContentExtra(id, name, sid){
+      var xmlhttp;
+    
+       
+          if (window.XMLHttpRequest){
+
+                                  xmlhttp = new XMLHttpRequest();
+
+                                  }
+
+                                   else{ 
+                                     xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                                  }
+
+                               xmlhttp.onreadystatechange = function(){
+                                 
+                                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                                        document.getElementById('cBody').innerHTML = xmlhttp.responseText;
+                                    }
+
+                               }
+
+                              xmlhttp.open("GET", "deleteExtra.php?id="+id+"&name="+name+"&sid="+sid, true);
+                              xmlhttp.send();
+                            
+                    return;  
+  }
+
    function selectsubc(id){
 
     var xmlhttp;
@@ -241,6 +270,7 @@ $(function(){
 
                    <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a></li>
 
+                   
                  </ul>
 
                  <!-- Tab panes -->
@@ -289,14 +319,18 @@ $(function(){
 
                                                                 
                                                   </div>
+                                            </div>
 
-                                             </div>
-                                    
-                                     
-                                   
-                                  
-                   </div>
-                    <!-- End Of category Pane -->
+
+                        <!--Other articles-->
+
+                             
+        </div>
+
+             
+
+                                      
+                     <!--end other articles-->
 
 
                     <!--Content pane -->
@@ -308,7 +342,8 @@ $(function(){
                                <div class="col-md-7">
                                   <div class="panel panel-info">
                                       <div class="panel-heading">
-                                          <span class="contactHead"><h2>Add Contents </h2></span>
+                                          <span class="contactHead"><h2 class="active">Add Contents </h2></span>
+                                         <!--   <a style="float:right;" href="editContents.php"> <span class="small"> Edit Contents</span></a> -->
                                       </div>
                                       
                                       <div class="panel-body">
@@ -379,7 +414,7 @@ $(function(){
                                    <div class="panel panel-default">
 
                                         <div class="panel-heading">
-                                           <h2>Preview</h2>
+                                           <h2>Image Preview</h2>
                                         </div>
 
 
@@ -456,6 +491,46 @@ $(function(){
                             </div>
                             <!--End image preview-->
                         </div>
+
+
+
+
+                                        
+                                         
+                                             <div class="panel panel-primary">
+                                                <div class="panel-heading">
+                                                  <span> <h2>All articles </h2></span>
+                                                   
+                                                
+                                            
+                                                </div>
+
+                                                <div class="panel-body" id="pBody">
+                                              <table class="table-striped table">
+                                               <thead>
+                                                    <tr>
+                                                    <th><h2>Heading</h2></th>
+                                                    <th><h2>Image </h2></th>
+                                                    <th><h2 class="pull-right">Options</h2></th>
+                                                  </tr>
+                                                </thead>
+                                                               
+
+                                                    <tbody id="cBody">
+
+                                                  <?php 
+                                                    getArticleBody("article");
+                                                   ?>
+                                                    </tbody>
+
+                                                         
+                                                    </table>
+
+
+                                                                
+                                                  </div>
+
+                                             </div>
                       
                     </div>
                     <!--End of article pane-->
@@ -515,10 +590,44 @@ $(function(){
                              <!--End image preview-->
                          </div>
                       
+                                 <div class="panel panel-primary">
+                                                <div class="panel-heading">
+                                                  <span> <h2>All Editorials </h2></span>
+                                                   
+                                                
+                                            
+                                                </div>
+
+                                                <div class="panel-body" id="pBody">
+                                              <table class="table-striped table">
+                                               <thead>
+                                                    <tr>
+                                                    <th><h2>Heading</h2></th>
+                                                    <th><h2>Image </h2></th>
+                                                    <th><h2 class="pull-right">Options</h2></th>
+                                                  </tr>
+                                                </thead>
+                                                               
+
+                                                    <tbody id="cBody">
+
+                                                  <?php 
+                                                    getArticleBody("editorial");
+                                                   ?>
+                                                    </tbody>
+
+                                                         
+                                                    </table>
+
+
+                                                                
+                                                  </div>
+
+                                             </div>
                     </div>
                     <!--End of editorial pane-->
 
-
+    
 
 
                     <!--Start of news desk-->
@@ -574,6 +683,41 @@ $(function(){
                              </div>
 
                          </div>
+
+                         <div class="panel panel-primary">
+                                                <div class="panel-heading">
+                                                  <span> <h2>All News Desk </h2></span>
+                                                   
+                                                
+                                            
+                                                </div>
+
+                                                <div class="panel-body" id="pBody">
+                                              <table class="table-striped table">
+                                               <thead>
+                                                    <tr>
+                                                    <th><h2>Heading</h2></th>
+                                                    <th><h2>Image </h2></th>
+                                                    <th><h2 class="pull-right">Options</h2></th>
+                                                  </tr>
+                                                </thead>
+                                                               
+
+                                                    <tbody id="cBody">
+
+                                                  <?php 
+                                                    getArticleBody("desk");
+                                                   ?>
+                                                    </tbody>
+
+                                                         
+                                                    </table>
+
+
+                                                                
+                                                  </div>
+
+                                             </div>
                       
                     </div>
                     <!--End of news desk-->

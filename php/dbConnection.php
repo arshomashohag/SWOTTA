@@ -1,7 +1,7 @@
 <?php 
 
 //$connection=mysqli_connect('localhost','devel503_swotta','@%&mU0?T+C1?','devel503_swotta');//Server
-$connection=mysqli_connect('localhost','root','','swotta'); //Localhost
+$connection=mysqli_connect('localhost','root','','swottanews'); //Localhost
 
 
 

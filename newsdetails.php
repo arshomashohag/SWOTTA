@@ -44,7 +44,11 @@ include_once('php/allFunctions.php');
 
     <div class="header_area">
       <div class="logo floatleft"><a href="#"><img src="images/logo12.png" alt="" /></a></div>
-      <div class="top_menu floatleft">
+      <br>
+      <br>
+      <br>
+      <br>
+      <span class="top_menu">
         <ul>
           <li><a href="index.php">Home</a></li>
           <li><a href="#">About</a></li>
@@ -69,7 +73,7 @@ include_once('php/allFunctions.php');
 
         ?>
         </ul>
-      </div>
+      </span>
    </div>
           
 

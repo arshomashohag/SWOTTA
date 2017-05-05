@@ -187,6 +187,59 @@ include "php/dbConnection.php";
   }
 
 
+  function getAllArticle($name){
+
+    global $connection;
+    $query = "SELECT * FROM $name";
+
+    $result = mysqli_query($connection, $query);
+    return $result;
+  }
+
+
+
+  function getArticleExtra($id,$name){
+
+    global $connection;
+    $query = "SELECT * FROM $name where id='$id'";
+
+    $result = mysqli_query($connection, $query);
+    if(!$result)
+      echo "Failed";
+    return $result;
+  }
+
+function updateArticle($id, $title, $filepath, $filetmp, $article,$tableName)
+  {
+                  global $connection;
+                          $zerro=0;
+                            
+                           $filepath = mysqli_real_escape_string($connection,$filepath);
+
+                       
+
+                           $query="UPDATE $tableName SET  head='$title',";
+
+                           if(!empty($filepath)){
+                            $query.="link='$filepath',";
+                           }
+
+                           $query.="body='$article' WHERE id='$id'";
+
+
+                           $result = mysqli_query($connection, $query);
+                           if($result){
+                            move_uploaded_file($filetmp, $filepath);
+                            }
+                            else
+                                return $result;
+                        
+                          
+
+                          return true;
+
+  }
+
   function getAllCategory(){
 
     global $connection;
@@ -216,6 +269,7 @@ include "php/dbConnection.php";
 
     return $result;
   }
+
 
   function getSubCategory($cid){
     global $connection;
@@ -255,7 +309,46 @@ include "php/dbConnection.php";
   
   }
 
+  function updateContentes($id, $title, $filepath, $filetmp, $article)
+  {
+                  global $connection;
+                          $zerro=0;
+                            
+                           $filepath = mysqli_real_escape_string($connection,$filepath);
 
+                       
+
+                           $query="UPDATE content SET  head='$title',";
+
+                           if(!empty($filepath)){
+                            $query.="image='$filepath',";
+                           }
+
+                           $query.="body='$article', readcount='$zerro' WHERE id='$id'";
+
+
+                           $result = mysqli_query($connection, $query);
+                           if($result){
+                            move_uploaded_file($filetmp, $filepath);
+                            }
+                            else
+                                return $result;
+                        
+                          
+
+                          return true;
+
+  }
+
+
+  function getAllcontentsDetails($id)
+  {
+    global $connection;
+    $query = "SELECT * FROM content WHERE id='$id'";
+
+    return mysqli_query($connection, $query);
+
+  }
 
 
   function getContents($cid, $scid){
@@ -270,19 +363,21 @@ include "php/dbConnection.php";
                       
                           global $connection;
                           $zerro=0;
+                           // $filetmp = mysqli_real_escape_string($connection,$filetmp);
                            $filepath = mysqli_real_escape_string($connection,$filepath);
+                        
 
                            $query="INSERT INTO content (cid, scid, head, image, body, readcount) VALUES('$category_id','$subcategory_id','$title','$filepath','$article', '$zerro')";
 
                            $result = mysqli_query($connection, $query);
-
-                          if($result && strlen($filepath)>0){
+                           if($result && !empty($filepath) && !empty($filetmp)){
                             move_uploaded_file($filetmp, $filepath);
-                            return true;
-                           }
- 
-                          if(!$result) 
-                            return $result;
+                            }
+                            
+                           
+                          
+                            if(!$result)
+                              return $result;
 
                           return true;
                           
@@ -422,5 +517,6 @@ function addImageforAdd($description, $filepath, $filetmp){
   return true;
 }
 
+ 
 
 ?>
